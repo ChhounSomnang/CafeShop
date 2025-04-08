@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MyShopCafe</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #fffaf5;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #8e5c4a;
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+    header h1 {
+      margin-bottom: 10px;
+    }
+    .menu-section {
+      padding: 30px;
+      max-width: 900px;
+      margin: auto;
+    }
+    h2 {
+      color: #6b4f4f;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 8px;
+      margin-top: 30px;
+    }
+    .menu-item {
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .menu-item h3 {
+      margin-bottom: 5px;
+    }
+    .order-btn {
+      background: #a47148;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .order-btn:hover {
+      background: #6b4f4f;
+    }
+
+    /* Order Page Style */
+    #order-page {
+      display: none;
+      background: #fff8f3;
+      padding: 30px;
+    }
+    .order-box {
+      background: white;
+      max-width: 500px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button.submit {
+      margin-top: 20px;
+      background: #a47148;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button.submit:hover {
+      background: #6b4f4f;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Main Menu -->
+  <div id="main-page">
+    <header>
+      <h1>ស្វាគមន៍មកកាន់កាហ្វេម៉ាក់ស្រីនុត</h1>
+      <p>Fresh Milk Tea & Coffee</p>
+    </header>
+
+    <section class="menu-section">
+      <h2>Menu</h2>
+
+      <div class="menu-item">
+        <div>
+          <h3>Classic Milk Tea</h3>
+          <p>$2.50</p>
+        </div>
+        <button class="order-btn" onclick="openOrder('Classic Milk Tea', 2.5)">Order</button>
+      </div>
+
+      <div class="menu-item">
+        <div>
+          <h3>Brown Sugar Milk Tea</h3>
+          <p>$3.00</p>
+        </div>
+        <button class="order-btn" onclick="openOrder('Brown Sugar Milk Tea', 3.0)">Order</button>
+      </div>
+
+      <div class="menu-item">
+        <div>
+          <h3>Cappuccino</h3>
+          <p>$2.80</p>
+        </div>
+        <button class="order-btn" onclick="openOrder('Cappuccino', 2.8)">Order</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Order Form Page -->
+  <div id="order-page">
+    <div class="order-box">
+      <h2>Order Details</h2>
+      <p><strong>Drink:</strong> <span id="drinkName"></span></p>
+      <p><strong>Price:</strong> $<span id="drinkPrice"></span></p>
+
+      <form onsubmit="submitOrder(event)">
+        <label for="location">Delivery Location</label>
+        <input type="text" id="location" required>
+
+        <label for="contact">Phone Number</label>
+        <input type="text" id="contact" required>
+
+        <button type="submit" class="submit">Submit Order</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openOrder(item, price) {
+      // Show order form and hide main page
+      document.getElementById('main-page').style.display = 'none';
+      document.getElementById('order-page').style.display = 'block';
+
+      document.getElementById('drinkName').textContent = item;
+      document.getElementById('drinkPrice').textContent = price;
+
+      // Save for later use
+      window.selectedDrink = item;
+      window.selectedPrice = price;
+    }
+
+    function submitOrder(e) {
+      e.preventDefault();
+      const location = document.getElementById('location').value;
+	  const contact = document.getElementById('contact').value;
+      alert(`Thank you! Your order for "${window.selectedDrink}" has been placed.\nPrice: $${window.selectedPrice}\nLocation: ${location}\nContact: ${contact}`);
+      window.location.reload(); // go back to menu
+    }
+  </script>
+</body>
+</html>
